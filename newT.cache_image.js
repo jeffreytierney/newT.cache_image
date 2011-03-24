@@ -97,15 +97,7 @@
     var img = this.img.apply(this, args);
     
     if(go_get) {
-      if(attributes.evt) {
-        //console.log(attributes.evt)
-        var rand = Math.floor(Math.random()*10000000000).toString();
-        // todo: if possible, make this not be jquery specific
-        $(document.body).bind(attributes.evt+"."+rand, function(e, data) { $(document.body).unbind(attributes.evt+"."+rand); fetchImage(go_get, img, attributes.nocache); }) 
-      }
-      else {
-        fetchImage(go_get, img, attributes.nocache);
-      }
+      fetchImage(go_get, img, attributes.nocache);
     }
     
     return img;
