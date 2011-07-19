@@ -1,24 +1,28 @@
-(function(T, default_image){
-  default_image = default_image || {
+(function(T){
+  // check options for a custom set default image
+  default_image = T.options.cimg_default_image || {
     content:"iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAADNQTFRFx+H5rNL2vtv40eb64/D87PX9mcf0frjxo8z19vr+kMLzdLPwh73ytdb3a67v2uv7////DFkSyQAAAJ1JREFUeNpMjwmKxTAMQ9023tf7n/YnLQNjYnBekCPBnNK+s/Ud4VylnKNK9APLM25LosvXAcudeCyxxB03sAujjCOK1GQAS4exQ/qh6VJ4bJRnS2Z8n4aMFM5k230lb0B9Rx9JB3Q0QMzUJ6lXgoWzOduzn87SMcHYTowq1vl2Vrm4Wqrf9RobcIm0vIg+6zMoVf/DvfHzL/5PgAEABToLXXm2DMMAAAAASUVORK5CYII=",
     mime: "image/png"
   };
   
+  // check to see if the browser supports all of the pieces that we will need for this to work
+  // localstorage, btoa, and JSON (cache the result of this check to only have to do it once)
   function cacheSupported() {
+    if(cacheSupported.hasOwnProperty("supported")) { return cacheSupported.supported; }
     var supported = false;
     try {
         supported = 'localStorage' in window && window['localStorage'] !== null && 'btoa' in window && 'JSON' in window;
     } catch (ex) {}
     
+    cacheSupported.supported = supported;
     return supported;
   }
-    
+  
+  // utility method to 
   function createDataString(img) {
     img = img || default_image;
     return ["data:",img.mime,";base64,",img.content].join("");
   }
-  
-
   
   function checkCache(src) {
     var key = encodeURIComponent(src),
@@ -83,7 +87,7 @@
       if (args[0].toString() === "[object Object]") { // if the first arg is an object, its attributes
         attributes = args.shift();
       }
-
+      
       var src = attributes.src || null;
       var cache_img = (!attributes.nocache && src && checkCache(src)) || null;
       

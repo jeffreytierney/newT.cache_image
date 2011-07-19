@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta content="IE=8" http-equiv="X-UA-Compatible"> 
+    </head>
+    <body>
+        
+        <div id="image_holder">
+        </div>
+        
+        <div id="cache_image_holder">
+        </div>
+        
+        
+        <script type="text/javascript" src="http://raw.github.com/jeffreytierney/newT/master/newT.js"></script>
+        <script type="text/javascript" src="newT.cache_image.js"></script>
+        
+        <script type="text/javascript">
+            var img = newT.img({src:"img/jeff.jpg"});
+            document.getElementById("image_holder").appendChild(img);
+
+            var cimg = newT.cimg({src:"img/jeff.jpg"});
+            document.getElementById("cache_image_holder").appendChild(cimg);
+        </script>
+    </body>
+</html>
